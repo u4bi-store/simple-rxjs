@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> simple rx js - combineLatest </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.3/Rx.min.js"></script>
+    </head>
+    <body>
+        
+        <script>
+            console.log(Rx);
+            console.log(Rx.Observable);
+
+            const timerOne = Rx.Observable.timer(1000, 4000);
+            const timerTwo = Rx.Observable.timer(2000, 4000);
+            const timerThree = Rx.Observable.timer(3000, 4000);
+            
+            const combined = Rx.Observable
+                .combineLatest(
+                    timerOne,
+                    timerTwo,
+                    timerThree
+                );
+
+            const subscribe = combined.subscribe(latestValues => {
+                
+                console.log(latestValues);
+
+                const [timerValOne, timerValTwo, timerValThree] = latestValues;
+
+                console.log(`1초 ${timerValOne} - 2초 ${timerValTwo} - 3초 ${timerValThree}`);
+                
+            });
+            
+            /* projection function
+            */
+            const combinedProject = Rx.Observable
+                .combineLatest(
+                    timerOne,
+                    timerTwo,
+                    timerThree,
+                    (one, two, three) => `1초 ${one} - 2초 ${two} - 3초 ${three}`
+                );
+
+            const subscribe_function = combinedProject.subscribe(latestValuesProject => console.log('function', latestValuesProject));
+
+        </script>
+    </body>
+</html>
