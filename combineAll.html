@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> simple rx js - combineAll </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.3/Rx.min.js"></script>
+    </head>
+    <body>
+        
+        <script>
+            console.log(Rx);
+            console.log(Rx.Observable);
+
+            const source = Rx.Observable.interval(1000).take(2);
+
+            const example = source.map(val => Rx.Observable.interval(1000).map(i => `${ val }-${ i }`).take(5));
+
+            const combined = example.combineAll();
+
+            const subscribe = combined.subscribe(val => console.log(`subscribe : ${ val }`));
+
+        </script>
+    </body>
+</html>
