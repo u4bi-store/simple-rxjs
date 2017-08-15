@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> simple rx js - race </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.3/Rx.min.js"></script>
+    </head>
+    <body>
+
+        <script>
+            console.log(Rx);
+            console.log(Rx.Observable);
+            
+            // 먼저 호출되는 것 사용
+            const example = Rx.Observable.race(
+                Rx.Observable.interval(1500),
+                Rx.Observable.interval(1000).mapTo('1s won!'),
+                Rx.Observable.interval(2000),
+                Rx.Observable.interval(2500)
+            );
+
+            const subscribe = example.subscribe(val => console.log(val));
+
+        </script>
+    </body>
+</html>
