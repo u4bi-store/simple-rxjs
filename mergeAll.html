@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> simple rx js - mergeAll </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.3/Rx.min.js"></script>
+    </head>
+    <body>
+
+        <script>
+            console.log(Rx);
+            console.log(Rx.Observable);
+
+            const myPromise = val => new Promise(resolve => setTimeout(() => resolve(val, 2000)))
+            const source = Rx.Observable.of( '첫번째', '두번째', '세번째' );
+
+            const example = source
+                .map(val => myPromise(val))
+                .mergeAll();
+
+            const subscribe = example.subscribe(val => console.log('subs', val));
+                                        
+        </script>
+    </body>
+</html>
