@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> simple rx js - concatAll </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.3/Rx.min.js"></script>
+    </head>
+    <body>
+
+        <script>
+            console.log(Rx);
+            console.log(Rx.Observable);
+
+            const source = Rx.Observable.interval(2000);
+            
+            const example = source.map(val => {
+                
+                return Rx.Observable.of(val*10, val*100, val*1000);
+                
+            }).concatAll();
+            
+            const subscribe = example.subscribe(val => console.log('subscribe ', val));
+
+
+
+
+            // promise concatAll
+
+            const source2 = Rx.Observable.interval(500);
+
+            const example2 = source2.map(val => {
+            
+                let primiseFunction = ( val ) => new Promise(resolve => {
+                    console.log('before ', val);
+                    
+                    return resolve('after '+val);
+
+                    // setTimeout(function(){ 
+                    //     return resolve('af '+val) 
+                    // }, 5000);
+
+                });
+
+                return primiseFunction(val);
+
+            }).concatAll();
+
+            const subscribe2 = example2.subscribe(val => console.log('promise ', val));
+
+
+
+
+            // delay complete concatAll
+
+            const obs1 = Rx.Observable.interval(100).take(5);
+            const obs2 = Rx.Observable.interval(50).take(2);
+            const obs3 = Rx.Observable.interval(200).take(1);
+
+            const source3 = Rx.Observable.of(obs1, obs2, obs3);
+            
+            const example3 = source3.concatAll();
+            /*
+            output :
+                
+                0,1,2,3,4,0,1,0
+                
+                    obs1: 0,1,2,3,4 (complete)
+
+                    obs2: 0,1       (complete)
+                    
+                    obs3: 0         (complete)
+            */
+
+            const subscribe3 = example3.subscribe(val => console.log('delay ', val));
+
+        </script>
+    </body>
+</html>
