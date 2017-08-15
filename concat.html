@@ -50,6 +50,51 @@
 
             const subscribe4 = source.subscribe(val => console.log('interval', val));
 
+
+
+// ============================================================================================
+
+            /* use */
+            var data1 = Rx.Observable.of(selectAll(), getData(2)),
+                data2 = Rx.Observable.of(giveMoney(2000), save(), notice('money'));
+
+            const use = Rx.Observable.concat(
+                data1,
+                data2
+            );
+
+            const subscribe5 = use.subscribe( val =>{
+                console.log('val', val);
+                
+            });
+
+            function selectAll(){
+                return 'select all data';
+            }
+
+            function getData(val){
+                return ['user data ', val];
+            }
+
+            function giveMoney(val){
+                return ['give money', val];
+            }
+            
+            function save(){
+                return 'data save';
+            }
+            
+            function notice(type){
+                switch(type) {
+                    case 'money':
+                        return ['일일 머니가 지급되었습니다.', 2000];
+                    default : break;
+
+                }
+            }
+            
+// ============================================================================================
+
         </script>
     </body>
 </html>
