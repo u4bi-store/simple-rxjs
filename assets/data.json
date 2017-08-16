@@ -1,0 +1,39 @@
+{
+  "weapons": [
+    {
+      "id": 1,
+      "name": "Rifle",
+      "price": 5000
+    },
+    {
+      "id": 2,
+      "name": "Shotgun",
+      "price": 10000
+    },
+    {
+      "id": 3,
+      "name": "Sniper",
+      "price": 30000
+    }        
+  ],
+  "vehicles": [
+    {
+      "id": 1,
+      "name": "BMX",
+      "price": 30000
+    },    
+    {
+      "id": 2,
+      "name": "Voodoo",
+      "price": 20000
+    },
+    {
+      "id": 3,
+      "name": "Pony",
+      "price": 30000
+    }
+  ],
+  "setup": {
+    "open": true
+  }
+}
