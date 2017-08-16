@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> simple rx js - startWith </title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.4.3/Rx.min.js"></script>
+    </head>
+    <body>
+
+        <script>
+            console.log(Rx);
+            console.log(Rx.Observable);
+
+            
+            // startWith basic
+            const source = Rx.Observable.of(1,2,3);
+            const example =  source.startWith(0);
+            const subscribe = example.subscribe(val => console.log(val));
+
+
+
+
+            // scan value
+            const source2 = Rx.Observable.of('두번째', '세번째', '네번째');
+            const example2 = source2
+                .startWith('첫번째')
+                .scan((acc, curr) => `${acc} ${curr}`);
+            const subscribe2 = example2.subscribe(val => console.log(val));
+
+
+
+
+            // multiple values
+            const source3 = Rx.Observable.interval(1000);
+            const example3 = source3.startWith(-3, -2, -1);
+            const subscribe3 = example3.subscribe(val => console.log(val));
+
+        </script>
+    </body>
+</html>
